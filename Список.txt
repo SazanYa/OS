@@ -4,4 +4,5 @@ Korneyev 003
 Jiestov 004
 Yotynov 005
 Yirkent 006
-Yachmenskiy 007
+Yachmenskiy 007Абакумов 66
+Гидов 44
