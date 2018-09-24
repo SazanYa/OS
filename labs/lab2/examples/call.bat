@@ -1,1 +1,0 @@
-call d:\dircd.bat
