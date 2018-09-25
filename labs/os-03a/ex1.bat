@@ -1,1 +1,1 @@
-start script.vbs
+start scripts\script.vbs
