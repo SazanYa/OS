@@ -1,0 +1,33 @@
+' A script to demonstrate the Color Picker dialog available in COMDLG32.OCX
+
+Option Explicit
+ 
+Dim myColor
+ 
+myColor = ColorPicker( )
+
+WScript.Echo "Selected color (RGB): " & RGB( myColor )
+ 
+ 
+Function ColorPicker( )
+	Dim objDialog
+	' Default value if aborted
+	'ColorPicker = 0
+	Set objDialog = CreateObject( "MSComDlg.CommonDialog" )
+	objDialog.ShowColor
+	ColorPicker = CLng( objDialog.Color )
+	Set objDialog = Nothing
+End Function
+ 
+
+Function RGB( myColor )
+	Dim intTest, strRed, strGreen, strBlue
+	strRed   = CStr( myColor Mod 256 )
+	intTest  = Int( myColor / 256 )
+	strGreen = CStr( intTest Mod 256 )
+	intTest  = Int( intTest / 256 )
+	strBlue  = CStr( intTest Mod 256 )
+	RGB      = strRed & " " & strGreen & " " & strBlue
+End Function
+ 
+

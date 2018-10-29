@@ -1,0 +1,57 @@
+strUserInput = GetUserInput( "Please enter your name:" )
+WScript.Echo "Your name is: " & strUserInput
+ 
+Function GetUserInput( myPrompt )
+' This function uses Internet Explorer to
+' create a dialog and prompt for user input.
+'
+
+	Dim objIE
+ 
+	' Create an IE object
+	Set objIE = CreateObject( "InternetExplorer.Application" )
+ 
+	' Specify some of the IE window's settings
+	objIE.Navigate "about:blank"
+	objIE.Document.title = "Input required " & String( 100, "." )
+	objIE.ToolBar        = False
+	objIE.Resizable      = False
+	objIE.StatusBar      = False
+	objIE.Width          = 320
+	objIE.Height         = 180
+ 
+	
+ 
+	' Wait till IE is ready
+	Do While objIE.Busy
+		WScript.Sleep 200
+	Loop
+	' Insert the HTML code to prompt for user input
+	objIE.Document.body.innerHTML = "<div align=""center""><p>" & myPrompt _
+	                              & "</p>" & vbCrLf _
+	                              & "<p><input type=""text"" size=""20"" " _
+	                              & "id=""UserInput""></p>" & vbCrLf _
+	                              & "<p><input type=""hidden"" id=""OK"" " _
+	                             & "name=""OK"" value=""0"">" _
+	                              & "<input type=""submit"" value="" OK "" " _
+	                              & "OnClick=""VBScript:OK.value=1""></p></div>"
+	
+	objIE.Visible = True
+	
+	objIE.Document.all.UserInput.focus
+ 
+	' Wait till the OK button has been clicked
+	On Error Resume Next
+	Do While objIE.Document.all.OK.value = 0 
+		WScript.Sleep 200
+		
+	Loop
+	
+	GetUserInput = objIE.Document.all.UserInput.value
+ 
+	' Close and release the object
+	objIE.Quit
+	Set objIE = Nothing
+End Function
+ 
+
