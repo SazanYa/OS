@@ -5,14 +5,18 @@
 
 DWORD WINAPI myThread(void* lpParameter)
 {
+	char id[2] = "1";
 	int* counterp = new int();
 	counterp = (int*)lpParameter;
 	int counter = *counterp;
+
+	if (counter == 5) strcpy(id, "2"); 
+
 	while (counter < 20)
 	{
 		Sleep(1000);
 		counter++;
-		printf("\n Counter = %d", counter);
+		printf("\n Counter %s = %d", id, counter);
 	}
 	return 0;
 }
